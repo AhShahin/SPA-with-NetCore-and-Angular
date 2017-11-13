@@ -1,0 +1,53 @@
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+      <accordion>
+<accordion-group #group>
+    <div accordion-heading>
+        <div class="list-group-item row" >
+            <div class="row">
+              <div class="col-md-12">
+                <div class="pull-right">
+                  <span id="completed" *ngIf="shoppingItem.isCompleted">Done!</span>
+                  <input type="checkbox" [checked]="shoppingItem.isCompleted" (click)="toggleshoppingItem(shoppingItem);$event.stopPropagation()">
+                </div>
+              </div>
+            </div>  
+            <div class="col-xs-3" id="image">
+              <span>
+                <img  class="img-fluid img-responsive"
+                      src="{{shoppingItem.item.imageUrl}}"
+                      alt=""
+                      style="width:160px;height:100px;">
+              </span>
+            </div>
+            <div class="col-xs-9" id="description">
+              <h3 class="list-group-item-heading">{{shoppingItem.item.title}}</h3>
+              <p class="list-group-item-heading" style="margin-top:0.8em">{{shoppingItem.item.description}}</p>
+            </div>
+            <button class="btn btn-danger pull-right" (click)="deleteShoppingItem(shoppingItem.id);$event.stopPropagation()">Delete item</button>
+          </div>
+    </div>
+    <button (click)="setEditState(shoppingItem, true)" [class.hidden]="shoppingItem.isEditMode" class="btn btn-primary pull-right">Edit item</button> 
+    <input [class.hidden]="!shoppingItem.isEditMode" type="button" value="Save" (click)="updateShoppingItem(shoppingItem);setEditState(shoppingItem, false)" class="btn btn-primary pull-right">        
+    <input [class.hidden]="!shoppingItem.isEditMode" type="button" value="Cancel" (click)="setEditState(shoppingItem, false)" class="btn btn-danger pull-right" style="margin-right:10px">    
+    <form class="form-horizontal" style="width:70%">
+        <div class="form-group">
+          <label class="control-label col-sm-2" for="notes">Notes:</label>
+          <div class="col-sm-6 details">
+              <div [class.hidden]="shoppingItem.isEditMode">{{shoppingItem.notes}}</div>
+              <textarea class="form-control" [class.hidden]="!shoppingItem.isEditMode" rows="4" cols="1000" name="notes" id="notes" #notes="ngModel" [(ngModel)]="shoppingItem.notes" placeholder="Enter notes" >
+              </textarea>
+          </div>
+        </div> 
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="units">Units:</label>
+            <div class="col-sm-1 details">
+                <div [class.hidden]="shoppingItem.isEditMode">{{shoppingItem.unit}}</div>                
+              <input type="number" min="1" [class.hidden]="!shoppingItem.isEditMode" class="form-control" name="units" #units="ngModel" [(ngModel)]="shoppingItem.unit" id="units" style="padding-left:5px;padding-right:5px;">
+            </div>
+        </div>
+      </form>  
+    </accordion-group>
+</accordion>
+  </div>
+</div>

@@ -1,0 +1,61 @@
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="list-group-item row" >
+      <div class="col-xs-3" id="image">
+        <span>
+          <img  class="img-fluid img-responsive"
+                src="{{item.imageUrl}}"
+                alt=""
+                style="width:160px;height:100px;">
+        </span>
+      </div>
+      <div class="col-xs-9" id="description">
+        <h3 class="list-group-item-heading">{{item.title}}</h3>
+        <p class="list-group-item-heading" style="margin-top:.8em">{{item.description}}</p>
+      </div>
+      <button class="btn btn-primary" style="float:right;" (click)="showChildModal()">Add item</button>
+    </div>
+  </div>
+</div>
+<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Add item</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h2 class="text-center" style="margin-top:0px;">{{item.title}}</h2>
+        <span>
+          <img  class="img-fluid img-responsive"
+                src="{{item.imageUrl}}"
+                alt=""
+                style="width:300px;height:200px;margin:0 auto">
+        </span>   
+        <form class="form-horizontal" style="margin: 20px 0">
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="notes">Notes:</label>
+            <div class="col-sm-6">
+                <textarea class="form-control" rows="4" cols="1000" name="notes" id="notes" #notes="ngModel" [(ngModel)]="shoppingListItem.notes" placeholder="Enter notes" >
+                </textarea>
+            </div>
+          </div> 
+          <div class="form-group">
+              <label class="control-label col-sm-2" for="units">Units:</label>
+              <div class="col-sm-2">
+                <input type="number" min="1" class="form-control" name="units" #units="ngModel" [(ngModel)]="shoppingListItem.unit" id="units" style="padding-left:5px;padding-right:5px;">
+              </div>
+            </div>
+          <div class="form-group"> 
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" (click)="save(item.id)" class="btn btn-primary pull-right" style="margin:0 10px">Submit</button>                
+                <button class="btn btn-danger pull-right" (click)="hideChildModal()">Cancel</button>                
+            </div>
+          </div>
+        </form>    
+      </div>
+    </div>
+  </div>
+</div>
